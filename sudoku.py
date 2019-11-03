@@ -55,18 +55,12 @@ def solve(board):
   x=board.doForcedVals()
   while(len(board.dependenceStack)<81):
     pos=80
-    if(len(board.dependenceStack)>30):
-      for i in range(81):
-        if(board.values[i].value==0):
-          pos=i
+    minOpts=8
+    for i in range(81):
+      if(board.values[i].value==0 and len(board.values[i].options)<minOpts ):
+        pos=i
+        if(len(board.values[i].options)==2):
           break
-    else:
-      minOpts=8
-      for i in range(81):
-        if(board.values[i].value==0 and len(board.values[i].options)<minOpts ):
-          pos=i
-          if(len(board.values[i].options)==2):
-            break
     makeAssumption(board,pos)
     if(board.doForcedVals()==False):
         reverseAssumption(board,pos)
